@@ -1,0 +1,129 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+html {
+  font-size: 62.5%; }
+
+body {
+  /* font def */
+  font-family: 'Kanit', sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  box-sizing: border-box; }
+
+#video-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; }
+
+video {
+  border: 1px white solid;
+  height: 300px;
+  width: 400px;
+  object-fit: cover; }
+
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: row; }
+
+/* LEFT side */
+.main__left {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column; }
+
+.main__videos {
+  flex: 1;
+  background-color: #1B1A1A;
+  /* align-self: center; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; }
+
+/* 2D3033 */
+.main__controls {
+  height: 100px;
+  background-color: #242525;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px; }
+
+.main__controls__block {
+  display: flex; }
+
+.main__controls__button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 10px;
+  min-width: 80px;
+  color: white;
+  cursor: pointer; }
+
+.main__controls__button i {
+  font-size: 24px; }
+
+/* 1e1f20 */
+.main__controls__button:hover {
+  background-color: #2D3033;
+  border-radius: 10px; }
+
+.screen-share-icon {
+  padding-left: 6px;
+  padding-right: 6px;
+  border: 1px white solid;
+  border-radius: 7px; }
+
+.hang-up {
+  font-size: 24px;
+  color: red; }
+
+/* RIGHT pane */
+.main__right {
+  flex: 0.2;
+  display: flex;
+  flex-direction: column;
+  border-left: 2px #2D3033 solid;
+  background-color: #242324; }
+
+.main__header {
+  color: #FFFFFF;
+  text-align: center; }
+
+.main__chat_window {
+  flex-grow: 1;
+  overflow-y: scroll; }
+
+.main__messages_container {
+  padding: 20px 12px; }
+
+.main__messages_container form {
+  display: flex;
+  justify-content: space-between; }
+
+.main__messages_container input {
+  flex-grow: 1;
+  font-size: medium;
+  background-color: transparent;
+  border: none;
+  color: #f5f5f5; }
+
+.message {
+  margin-bottom: 16px;
+  color: #FFFFFF; }
+
+.message__name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-right: 8px; }
+
+.message__meta {
+  font-size: 14px; }
