@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
     <script>
@@ -36,18 +36,25 @@
                 </div>
 
                 <div class="main__controls__block">
-                    <div class="main__controls__button">
+                    <div onclick="muteUnmute()" class="main__controls__button mute-button">
                         <i class="fas fa-microphone fa-2x"></i>
-                        <span>  Mic </span>
+                        <span>  Mute </span>
                     </div>
-                    <div class="main__controls__button">
+                    <div onclick="playStop()" class="main__controls__button video-button">
                         <i class="fas fa-video fa-2x"></i>
-                        <span> Video</span>
+                        <span> Stop Video</span>
                     </div>
                     <div class="main__controls__button">
                         <i class="fas fa-arrow-up fa-2x screen-share-icon"></i>
                         <span> Share Screen </span>
                     </div>
+                    <div class="main__controls__button">
+                        <i class=" hang-up fas fa-sign-out-alt fa-2x"></i>
+                        <span> Hang Up</span>
+                    </div>
+                </div>
+
+                <div class="main__controls__block">
                     <div class="main__controls__button">
                         <i class="fas fa-comments fa-2x"></i>
                         <span> Chat</span>
@@ -55,11 +62,6 @@
                     <div class="main__controls__button">
                         <i class="fas fa-users fa-2x"></i>
                         <span> Participants</span>
-                    </div>
-                </div>
-                <div class="main__controls__block">
-                    <div class="main__controls__button">
-                       <span class="hang-up">Leave</span> 
                     </div>
                 </div>
 

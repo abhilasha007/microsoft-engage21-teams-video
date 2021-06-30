@@ -15,6 +15,7 @@ const messageTemplate = document.querySelector("#message-template").innerHTML;
 var myPeer = new Peer()
 const peers = {}
 
+let myVideoStream;
 const myVideo = document.createElement('video')
 myVideo.muted = true
 
@@ -23,6 +24,7 @@ navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true
 }).then((stream) => {
+    myVideoStream = stream
     addVideoStream(myVideo, stream)
     
     // Answering the call
@@ -44,6 +46,8 @@ navigator.mediaDevices.getUserMedia({
     console.log('Please allow web cam and voice', error);
 }) 
 
+
+//========================= Utils/ Custom Functions ======================================//
 // adding user's stream in myVideo element
 const addVideoStream = (video, stream) => {
     video.srcObject = stream
@@ -52,8 +56,6 @@ const addVideoStream = (video, stream) => {
     })
     videoGrid.append(video)
 }
-
-//========================= Utils/ Custom Functions ======================================//
 // sending our stream to new user
 const connectToNewUser = (userId, stream) => {
     const call = myPeer.call(userId, stream)
@@ -73,8 +75,62 @@ const connectToNewUser = (userId, stream) => {
 }
 
 const scrollToBottom = () => {
-    var d = $('.main__chat_window');
-    d.scrollTop(d.prop("scrollHeight"));
+    var chatWindow = $('.main__chat_window');
+    chatWindow.scrollTop(chatWindow.prop("scrollHeight"));
+}
+
+//========================== Audio/Video Toggle ================================//
+const muteUnmute = () => {
+    const enabled = myVideoStream.getAudioTracks()[0].enabled;
+    if (enabled) {
+        myVideoStream.getAudioTracks()[0].enabled = false;
+        setUnmuteButton();
+    } else {
+        myVideoStream.getAudioTracks()[0].enabled = true;
+        setMuteButton();
+    }
+}
+const setMuteButton = () => {
+    const html = `
+        <i class="fas fa-microphone fa-2x" ></i>
+        <span>Mute</span>
+    `
+    document.querySelector('.mute-button').innerHTML = html;
+}
+
+const setUnmuteButton = () => {
+    const html = `
+        <i class="unmute fas fa-microphone-slash fa-2x"></i>
+        <span>Unmute</span>
+    `
+    document.querySelector('.mute-button').innerHTML = html;
+}
+
+const playStop = () => {
+    const enabled = myVideoStream.getVideoTracks()[0].enabled;
+    if(enabled) {
+        myVideoStream.getVideoTracks()[0].enabled = false;
+        setPlayVideoButton()
+    } else {
+        myVideoStream.getVideoTracks()[0].enabled = true;
+        setStopVideoButton()
+    }
+}
+
+const setPlayVideoButton = () => {
+    const html = `
+        <i class="fas fa-video-slash video-slash fa-2x"></i>
+        <span>Start Video</span>
+    `
+    document.querySelector('.video-button').innerHTML = html;
+}
+
+const setStopVideoButton = () => {
+    const html = `
+        <i class="fas fa-video fa-2x"></i>
+        <span>Stop Video</span>
+    `
+    document.querySelector('.video-button').innerHTML = html;
 }
 
 //================= When peer object is created, user joins a room ==========================//

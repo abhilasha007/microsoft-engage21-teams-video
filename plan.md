@@ -24,4 +24,4 @@
 - together mode
 - recording - record player page, speed control
 
--https
+- https

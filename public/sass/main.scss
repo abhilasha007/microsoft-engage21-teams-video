@@ -102,8 +102,7 @@ video {
     border-radius: 7px;
 }
 .hang-up {
-    font-size: 24px;
-    color: red;
+    color: #cc3b33;
 }
 
 /* RIGHT pane */
@@ -138,7 +137,7 @@ video {
 
 .main__messages_container input {
     flex-grow: 1;
-    font-size: 50px;
+    font-size: 20px;
     background-color: transparent;
     border: none;
     color: #f5f5f5;
@@ -156,4 +155,11 @@ video {
 
 .message__meta {
     font-size: 14px;
+}
+
+.unmute {
+    color: #cc3b33;
+}
+.video-slash {
+    color: #cc3b33;
 }
