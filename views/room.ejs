@@ -10,6 +10,7 @@
     <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="img/video2.ico" type="image/x-icon" />
     <script>
         const ROOM_ID = "<%= roomId %>"
     </script>
@@ -44,7 +45,7 @@
                         <i class="fas fa-video fa-2x"></i>
                         <span> Stop Video</span>
                     </div>
-                    <div class="main__controls__button">
+                    <div id="screen-share-button" class="main__controls__button">
                         <i class="fas fa-arrow-up fa-2x screen-share-icon"></i>
                         <span> Share Screen </span>
                     </div>
@@ -97,7 +98,7 @@
     <script id="message-template" type="text/html">
         <div class="message">
             <p>
-                <span class="message__name"> {{userId}} </span>
+                <span class="message__name"> {{username}} </span>
                 <span class="message__meta"> {{createdAt}} </span>
             </p>
             <p> {{message}} </p>

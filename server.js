@@ -30,15 +30,16 @@ app.get('/:room', (req, res) => {
 io.on('connection', (socket) => {
     console.log('New socket connection')
 
-    socket.on('join-room', (roomId, userId) => {
-        const {user} = addUser({userId: userId, roomId: roomId})
+    socket.on('join-room', (roomId, userId, username) => {
+        console.log(roomId, userId, username);
+        const {user} = addUser({userId: userId, roomId: roomId, username: username})
         socket.join(user.roomId)
         
         socket.broadcast.to(roomId).emit('user-joined', userId)
         
         // recieving message from client
         socket.on('sendMessage', (msg) => {
-            io.to(user.roomId).emit('createMessage', generateMessage(userId, msg));
+            io.to(user.roomId).emit('createMessage', generateMessage(userId, msg, username));
         })
 
         socket.on('disconnect', () => {
