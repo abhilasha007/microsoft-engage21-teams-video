@@ -1,0 +1,21 @@
+body {
+    /* font def */
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 1.6rem;
+    // line-height: 1.7;   
+}
+
+.heading-primary{
+    text-transform: capitalize;
+    letter-spacing: 3px;
+    font-size: 2rem;
+    display: inline;
+}
+
+.heading-timer {
+    margin: 0 1rem;
+    background-color:#939bee83 ;
+    padding: 0 9px;
+    border-radius: 8px;
+}

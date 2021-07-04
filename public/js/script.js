@@ -2,17 +2,19 @@ const socket = io('/')
 const videoGrid = document.getElementById("video-grid");
 
 const $tempMessage = document.querySelector("#temp-message")
-const $messageForm = document.querySelector('#message-form')
+const $messageForm = document.getElementById('message-form');
 const $messageInput = $messageForm.querySelector('input');
 const $messageButton = $messageForm.querySelector('button');
 const $messages = document.querySelector("#display-messages");
+const $emojiButton = document.getElementById("emoji-button");
 
 const $screenShareBtn = document.getElementById('screen-share-button')
 const $screenShareVideo = document.getElementById('screen-share-video');
 
 // Templates
 const tempMessageTemplate = document.querySelector("#temp-msg-template").innerHTML;
-const messageTemplate = document.querySelector("#message-template").innerHTML;
+const sentMessageTemplate = document.querySelector("#sent-message-template").innerHTML;
+const recievedMessageTemplate = document.querySelector('#recieved-message-template').innerHTML;
 
 let username = prompt("Enter Your Name ");
 
@@ -62,6 +64,13 @@ const addVideoStream = (video, stream) => {
         video.play()
     })
     videoGrid.append(video)
+    let totalUsers = document.getElementsByTagName("video").length;
+    if (totalUsers > 1) {
+        for (let index = 0; index < totalUsers; index++) {
+          document.getElementsByTagName("video")[index].style.width =
+            100 / totalUsers + "%";
+        }
+    }
 }
 // sending our stream to new user --------------------------------------------------------//
 const connectToNewUser = (userId, stream) => {
@@ -84,7 +93,7 @@ const connectToNewUser = (userId, stream) => {
 }
 
 const scrollToBottom = () => {
-    var chatWindow = $('.main__chat_window');
+    var chatWindow = $('.side-bar__chat-box');
     chatWindow.scrollTop(chatWindow.prop("scrollHeight"));
 }
 
@@ -126,18 +135,12 @@ const muteUnmute = () => {
     }
 }
 const setMuteButton = () => {
-    const html = `
-        <i class="fas fa-microphone fa-2x" ></i>
-        <span>Mute</span>
-    `
+    const html = `<i class="fas fa-microphone" ></i>`
     document.querySelector('.mute-button').innerHTML = html;
 }
 
 const setUnmuteButton = () => {
-    const html = `
-        <i class="unmute fas fa-microphone-slash fa-2x"></i>
-        <span>Unmute</span>
-    `
+    const html = `<i class="unmute fas fa-microphone-slash"></i>`
     document.querySelector('.mute-button').innerHTML = html;
 }
 
@@ -153,18 +156,12 @@ const playStop = () => {
 }
 
 const setPlayVideoButton = () => {
-    const html = `
-        <i class="fas fa-video-slash video-slash fa-2x"></i>
-        <span>Start Video</span>
-    `
+    const html = ` <i class="fas fa-video-slash"></i> `
     document.querySelector('.video-button').innerHTML = html;
 }
 
 const setStopVideoButton = () => {
-    const html = `
-        <i class="fas fa-video fa-2x"></i>
-        <span>Stop Video</span>
-    `
+    const html = `<i class="fas fa-video"></i>`
     document.querySelector('.video-button').innerHTML = html;
 }
 
@@ -176,15 +173,43 @@ myPeer.on('open', (id) => {
 //======================= chat messages rendering ===============================//
 $messageForm.addEventListener('submit', (e) => {
     e.preventDefault()
-    // $messageButton.disabled = true;
-    const message = e.target.elements.messageInput.value
-    socket.emit('sendMessage',  message);
+    $messageButton.disabled = true;
+    const message = e.target.elements.messageInput.value;
+
+    socket.emit('sendMessage', message, (error) => {
+        $messageButton.disabled = false
+        $messageInput.value = ''
+        $messageInput.focus()
+        if(error) {
+            return console.log(error);
+        }
+        console.log('delivered');
+    });
+
+    const htmlvar = Mustache.render(sentMessageTemplate,  {
+        username: 'You',
+        createdAt: moment(new Date().getTime()).format('h:mm a'),
+        message: message
+    })
+
+    $messages.insertAdjacentHTML('beforeend', htmlvar);
+    scrollToBottom()
 })
 
+var picker = new EmojiButton({position: 'left-end'});
+picker.on('emoji', (emoji) => {
+    $messageInput.value += emoji;
+})
+
+$emojiButton.addEventListener('click', () => {
+    picker.pickerVisible ? picker.hidePicker() : picker.showPicker($emojiButton);
+})
+
+
 socket.on('createMessage', ({userId, username, msg, createdAt}) => {
-    const html = Mustache.render(messageTemplate, {
+    const html = Mustache.render(recievedMessageTemplate, {
         username: username,
-        createdAt: moment(createdAt).format('h: mm a'),
+        createdAt: moment(createdAt).format('h:mm a'),
         message: msg
     })
     $messages.insertAdjacentHTML('beforeend', html);

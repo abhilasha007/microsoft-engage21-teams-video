@@ -1,0 +1,38 @@
+.sent-msg{
+    // display: flex;
+    background-color: #E9EAF6;
+    color: #000;
+    border-radius: 0.4rem 0.4rem 0 0.4rem;
+    margin-left: auto;
+    max-width: calc(100% - 6rem);
+    
+}
+
+.recieved-msg{
+    background-color: #ffff;
+    border-radius: 0.4rem 0.4rem 0.4rem 0;
+    color: black;
+    margin-right: auto;
+    max-width: calc(100% - 6rem);
+}
+
+.msg {
+    margin-bottom: 5px;
+    padding: .8rem 1.5rem;
+    &__header {
+        display: flex;
+        flex-flow: row;
+
+        &__name {
+            font-weight: 550;
+            font-size: 14px;
+            margin-right: 8px;
+        }
+
+        &__time {
+            padding: 1px;
+            color: #777;
+            font-size: 12px;
+        }
+    }
+}

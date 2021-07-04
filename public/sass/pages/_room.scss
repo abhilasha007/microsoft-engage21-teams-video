@@ -1,0 +1,17 @@
+#video-grid {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
+video {
+    display: block;
+    flex: 1;
+    object-fit: cover;
+    max-width: 75rem;
+    border: 1px solid #1B1A1A;
+    border-radius: 4px;
+}

@@ -1,0 +1,85 @@
+// Main-bar icons
+.icon {
+    font-size: 2.2rem;
+    // color: white;
+    display: inline-block;
+    padding: 1rem;
+    margin-right: 8px;
+    // padding: 8px 10px;
+    min-width: 6rem;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    transition: all .2s;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #343434;
+        border-radius: 6px;
+        box-shadow: 0rem .1rem 0.5rem rgba($color-black, 0.2);
+    }
+    &:active {
+        transform: translateY(-0.1rem);
+        box-shadow: 0rem .5rem 1rem rgba($color-black, 0.2);
+    }
+}
+
+.hangup {
+    transform: rotate(225deg);
+}
+
+.hangup-div {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+    border-radius: 5rem;
+    background-color: #9D2F42;
+    // transition: all .2s;
+    &:hover {
+        background-color: #A22137;
+        // transform: translateY(-0.5px);
+        border-radius: 5rem;
+        cursor: pointer;
+    }
+}
+
+.mic-div{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+#screen-share-icon{
+    // padding-left: 6px;
+    // padding-right: 6px;
+    border: 1px white solid;
+    border-radius: 7px;
+}
+
+
+// Side-bar icons
+.send-button {
+    font-size: 1.7rem;
+    background: transparent;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+}
+
+.msg-icons {
+    color: #616161;
+    transform: all .2s;
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.04);
+        color: rgb(98,100,167);
+    }
+    &:active{
+        transform: translateY(1px);
+    }
+}
+
+// sidebar nav
+.o {
+    margin-left: 4px;
+    font-size: 1.1rem;
+}

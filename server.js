@@ -38,8 +38,10 @@ io.on('connection', (socket) => {
         socket.broadcast.to(roomId).emit('user-joined', userId)
         
         // recieving message from client
-        socket.on('sendMessage', (msg) => {
-            io.to(user.roomId).emit('createMessage', generateMessage(userId, msg, username));
+        socket.on('sendMessage', (msg, callback) => {
+            //---profanity filter for later---//
+            socket.broadcast.to(user.roomId).emit('createMessage', generateMessage(userId, msg, username));
+            callback()
         })
 
         socket.on('disconnect', () => {

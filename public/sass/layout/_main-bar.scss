@@ -1,0 +1,36 @@
+main {
+    margin: 0;
+    padding: 0;
+}
+
+.main-bar {
+    height: 100vh;
+    background-color: #1B1A1A; // #0A0A0A;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+
+    &__header {
+        padding: 1.5rem;
+        background-color: #232323;
+        color: #fff;
+        text-align: center;
+        &__title {
+            display: inline;
+        }
+    }
+
+    &__video-grid {
+        background-color:  #1B1A1A;   
+    }
+
+    &__icons {
+        // background-color: #2C2C2C;
+        background-color: #242525;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        // padding: 5px;
+    }
+}
+
