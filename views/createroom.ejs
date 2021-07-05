@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script>
+            const ROOM_ID = "<%= roomId %>";
+        </script>
+    </head>
+    <body>        
+        <h1>Creds page</h1>
+        <h1> Your roomID : <%= roomId %>  </h1>
+        <a href="/"> back to home</a>
+        <form method="POST" action="/<%= roomId %>">
+            <input type="text" name="username" id="userNameField" placeholder="Your name">
+            <input type="text" name="roomname" id="roomNameField" placeholder="Room Name">
+            <input type="hidden" value="<%= roomId %>" name="roomId" />
+            <button type="submit"> Join </button>
+        </form>
+
+        <script src = "/js/credentials.js"></script>
+    </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const ROOM_ID = '<%= roomId %>'
+        const USER_NAME = "<%= username %>";
+    </script>
+</head>
+<body>
+    <h1> You left</h1>
+    <a href="/"> Return to Home </a>
+    <form action="/<%= roomId %>" method="POST">
+        <input type="hidden" value="<%= username %>" name="username">
+        <input type="hidden" value="<%= roomId %>" name="roomId" />
+        <button type="submit">Rejoin Meeting</button>
+    </form>
+</body>
+</html>

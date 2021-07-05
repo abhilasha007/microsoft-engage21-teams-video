@@ -16,7 +16,8 @@ const tempMessageTemplate = document.querySelector("#temp-msg-template").innerHT
 const sentMessageTemplate = document.querySelector("#sent-message-template").innerHTML;
 const recievedMessageTemplate = document.querySelector('#recieved-message-template').innerHTML;
 
-let username = prompt("Enter Your Name ");
+let username = USER_NAME;
+//prompt("Enter Your Name ");
 
 var myPeer = new Peer()
 const peers = {}
@@ -206,7 +207,7 @@ $emojiButton.addEventListener('click', () => {
 })
 
 
-socket.on('createMessage', ({userId, username, msg, createdAt}) => {
+socket.on('createMessage', ({username, msg, createdAt}) => {
     const html = Mustache.render(recievedMessageTemplate, {
         username: username,
         createdAt: moment(createdAt).format('h:mm a'),
