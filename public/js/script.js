@@ -15,6 +15,7 @@ const $screenShareVideo = document.getElementById('screen-share-video');
 const tempMessageTemplate = document.querySelector("#temp-msg-template").innerHTML;
 const sentMessageTemplate = document.querySelector("#sent-message-template").innerHTML;
 const recievedMessageTemplate = document.querySelector('#recieved-message-template').innerHTML;
+const adminMessageTemplate = document.querySelector('#admin-message-template').innerHTML;
 
 let username = USER_NAME;
 //prompt("Enter Your Name ");
@@ -48,7 +49,7 @@ navigator.mediaDevices.getUserMedia({
     })
 
     // sending our stream to new user/ calling to new user
-    socket.on('user-joined', (userId) => {
+    socket.on('user-joined', (userId, username) => {
         connectToNewUser(userId, stream)
     })
 }).catch(error => {
@@ -217,13 +218,39 @@ socket.on('createMessage', ({username, msg, createdAt}) => {
     scrollToBottom()
 })
 
-//======================== Listening: User joined/left from server ===============================//
-// temp messages on screen
-socket.on('user-joined', (id) => {
-    console.log('User joined: ' + id)
+//============================= Raise hand ========================================//
+const raiseHand = () => {
+    socket.emit('raise-hand');
+}
+
+socket.on('handRaised', (username) => {
+    const html = Mustache.render(adminMessageTemplate, {
+        icon: '<i class="fas fa-hand-paper"></i>',
+        username: username,
+        info: ' has raised hand.'
+    })
+    $messages.insertAdjacentHTML('beforeend', html);
+    scrollToBottom()
 })
 
-socket.on('user-disconnected', (userId) => {
-    console.log('User left: ' + userId);
+//======================== Listening: User joined/left from server ===============================//
+// temp messages on screen
+socket.on('user-joined', (userId, username) => {
+    const html = Mustache.render(adminMessageTemplate, {
+        icon: '<i class="fas fa-user-plus"></i>',
+        username: username,
+        info: ' has joined the chat.'
+    })
+    $messages.insertAdjacentHTML('beforeend', html);
+})
+
+socket.on('user-disconnected', (userId, username) => {
+    const html = Mustache.render(adminMessageTemplate, {
+        icon: '<i class="fas fa-user-minus"></i>',
+        username: username,
+        info: ' has left the chat.'
+    })
+    $messages.insertAdjacentHTML('beforeend', html);
+    scrollToBottom()
     if(peers[userId]) peers[userId].close()
 })

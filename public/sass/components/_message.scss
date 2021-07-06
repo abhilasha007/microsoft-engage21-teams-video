@@ -5,7 +5,6 @@
     border-radius: 0.4rem 0.4rem 0 0.4rem;
     margin-left: auto;
     max-width: calc(100% - 6rem);
-    
 }
 
 .recieved-msg{
@@ -25,14 +24,34 @@
 
         &__name {
             font-weight: 550;
-            font-size: 14px;
+            font-size: 1.4rem;
             margin-right: 8px;
+            color: #424242;
         }
 
         &__time {
             padding: 1px;
             color: #777;
-            font-size: 12px;
+            font-size: 1.2rem;
+        }
+        &__main {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+.admin-msg {
+    padding: 1rem 2em;
+    color: #424242;
+    font-size: 1.5rem;
+    &__icon {
+        font-size: 1.4rem;
+        color: #616161;
+        margin-right: 5px;
+    }
+    &__h {
+        &__username {
+            font-weight: 600;
         }
     }
 }

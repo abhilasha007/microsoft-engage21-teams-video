@@ -58,7 +58,7 @@ io.on('connection', (socket) => {
         const {user} = addUser({userId: userId, socketId: socket.id, roomId: roomId, username: username})
         socket.join(user.roomId)
         
-        socket.broadcast.to(roomId).emit('user-joined', userId)
+        socket.broadcast.to(roomId).emit('user-joined', userId, username)
         
         // recieving message from client
         socket.on('sendMessage', (msg, callback) => {
@@ -66,8 +66,12 @@ io.on('connection', (socket) => {
             callback()
         })
 
+        socket.on('raise-hand', () => {
+            io.to(user.roomId).emit('handRaised', username);
+        })
+
         socket.on('disconnect', () => {
-            socket.broadcast.to(roomId).emit('user-disconnected', userId)
+            socket.broadcast.to(roomId).emit('user-disconnected', userId, username);
         })
     })
 })
