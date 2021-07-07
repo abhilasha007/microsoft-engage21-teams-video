@@ -1,5 +1,6 @@
 const socket = io('/')
 const videoGrid = document.getElementById("video-grid");
+const videoGrid_wr = document.querySelector('.waiting_room__video');
 
 const $messageForm = document.getElementById('message-form');
 const $messageInput = $messageForm.querySelector('input');
@@ -15,26 +16,47 @@ const sentMessageTemplate = document.querySelector("#sent-message-template").inn
 const recievedMessageTemplate = document.querySelector('#recieved-message-template').innerHTML;
 const adminMessageTemplate = document.querySelector('#admin-message-template').innerHTML;
 
+const main__app = document.getElementById('main_app');
+const waiting__room = document.querySelector('.waiting_room');
+const joinBtn = document.querySelector('.joincall_btn');
+
+main__app.style.visibility = "hidden";
+joinBtn.addEventListener('click', () => {
+    console.log('clicked');
+    main__app.style.visibility = "visible";
+    waiting__room.style.visibility = "hidden";
+    waiting__room.style.zIndex = "-11";
+})
+
 let username = USER_NAME;
-//prompt("Enter Your Name ");
 
 var myPeer = new Peer()
 const peers = {}
 var currentPeer;
 
+//======================== When peer object is created, user joins a room ==========================//
+myPeer.on('open', (id) => {
+    socket.emit('join-room', ROOM_ID, id, username);
+})
+
 let myVideoStream;
 const myVideo = document.createElement('video')
 myVideo.muted = true
 
-//=================== prompting permission of media usage to user ===================//
+//=========================== prompting permission of media usage to user ======================//
 navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true
 }).then((stream) => {
     myVideoStream = stream
+    myVideoStream.getVideoTracks()[0].enabled = false;
+    myVideoStream.getAudioTracks()[0].enabled = false;
+
     addVideoStream(myVideo, stream)
-    
-    // Answering the call ---------------------------------------------------------//
+    const myVideo_wr = document.createElement('video')
+    addVideoStreamInWR(myVideo_wr, stream);
+
+    // Answering the call --------------------------------------------//
     myPeer.on('call', (call)=>{
         call.answer(stream)
         // adding caller's stream on our page
@@ -51,13 +73,19 @@ navigator.mediaDevices.getUserMedia({
         connectToNewUser(userId, stream)
     })
 }).catch(error => {
-    // alert message pop up
     console.log('Please allow web cam and voice', error);
 }) 
 
-
-//========================= Utils/ Custom Functions ======================================//
+//======================================== UTILS ===============================================//
 // adding user's stream in myVideo element
+const addVideoStreamInWR = (video, stream) => {
+    video.srcObject = stream
+    video.addEventListener('loadedmetadata', ()=>{
+        video.play()
+    })
+    video.className = "video_wr";
+    videoGrid_wr.append(video);
+}
 const addVideoStream = (video, stream) => {
     video.srcObject = stream
     video.addEventListener('loadedmetadata', ()=>{
@@ -72,7 +100,7 @@ const addVideoStream = (video, stream) => {
         }
     }
 }
-// sending our stream to new user --------------------------------------------------------//
+// sending our stream to new user ---------------------------------------//
 const connectToNewUser = (userId, stream) => {
     const call = myPeer.call(userId, stream)
 
@@ -97,9 +125,8 @@ const scrollToBottom = () => {
     chatWindow.scrollTop(chatWindow.prop("scrollHeight"));
 }
 
-//============================ Screen Share ======================================//
+//============================ SCREEN SHARE ======================================//
 $screenShareBtn.addEventListener('click', (e) => {
-    // console.log('Screen share button clicked');
     navigator.mediaDevices.getDisplayMedia({
         video: {
             cursor: "always"
@@ -120,57 +147,72 @@ $screenShareBtn.addEventListener('click', (e) => {
 
 })
 
+//============================== AUDIO/VIDEO TOGGLE ===================================//
+// Wait room
+const muteUnmute_wr = () => {
+    const enabled = myVideoStream.getAudioTracks()[0].enabled;
+    if (enabled) {
+        myVideoStream.getAudioTracks()[0].enabled = false;
+        setUnmuteButton('.mute-button_wr');
+    } else {
+        myVideoStream.getAudioTracks()[0].enabled = true;
+        setMuteButton('.mute-button_wr');
+    }
+}
 
+const playStop_wr = () => {
+    const enabled = myVideoStream.getVideoTracks()[0].enabled;
+    if(enabled) {
+        myVideoStream.getVideoTracks()[0].enabled = false;
+        setPlayVideoButton('.video-button_wr')
+    } else {
+        myVideoStream.getVideoTracks()[0].enabled = true;
+        setStopVideoButton('.video-button_wr')
+    }
+}
 
-
-//========================== Audio/Video Toggle ================================//
+// Main app
 const muteUnmute = () => {
     const enabled = myVideoStream.getAudioTracks()[0].enabled;
     if (enabled) {
         myVideoStream.getAudioTracks()[0].enabled = false;
-        setUnmuteButton();
+        setUnmuteButton('.mute-button');
     } else {
         myVideoStream.getAudioTracks()[0].enabled = true;
-        setMuteButton();
+        setMuteButton('.mute-button');
     }
 }
-const setMuteButton = () => {
-    const html = `<i class="fas fa-microphone" ></i>`
-    document.querySelector('.mute-button').innerHTML = html;
-}
-
-const setUnmuteButton = () => {
-    const html = `<i class="unmute fas fa-microphone-slash"></i>`
-    document.querySelector('.mute-button').innerHTML = html;
-}
-
 const playStop = () => {
     const enabled = myVideoStream.getVideoTracks()[0].enabled;
     if(enabled) {
         myVideoStream.getVideoTracks()[0].enabled = false;
-        setPlayVideoButton()
+        setPlayVideoButton('.video-button')
     } else {
         myVideoStream.getVideoTracks()[0].enabled = true;
-        setStopVideoButton()
+        setStopVideoButton('.video-button')
     }
 }
 
-const setPlayVideoButton = () => {
+const setMuteButton = ( className ) => {
+    const html = `<i class="fas fa-microphone" ></i>`;
+    document.querySelector(`${className}`).innerHTML = html;
+}
+const setUnmuteButton = (className) => {
+    const html = `<i class="unmute fas fa-microphone-slash"></i>`
+    document.querySelector(`${className}`).innerHTML = html;
+}
+const setPlayVideoButton = (className) => {
     const html = ` <i class="fas fa-video-slash"></i> `
-    document.querySelector('.video-button').innerHTML = html;
+    document.querySelector(`${className}`).innerHTML = html;
 }
-
-const setStopVideoButton = () => {
+const setStopVideoButton = (className) => {
     const html = `<i class="fas fa-video"></i>`
-    document.querySelector('.video-button').innerHTML = html;
+    document.querySelector(`${className}`).innerHTML = html;
 }
 
-//================= When peer object is created, user joins a room ==========================//
-myPeer.on('open', (id) => {
-    socket.emit('join-room', ROOM_ID, id, username);
-})
 
-//======================= chat messages rendering ===============================//
+
+//=========================== CHAT MESSAGES rendering ===============================//
 $messageForm.addEventListener('submit', (e) => {
     e.preventDefault()
     $messageButton.disabled = true;
@@ -216,7 +258,7 @@ socket.on('createMessage', ({username, msg, createdAt}) => {
     scrollToBottom()
 })
 
-//============================= Raise hand ========================================//
+//=================================== RAISE HAND =============================================//
 const raiseHand = () => {
     socket.emit('raise-hand');
 }
@@ -231,8 +273,7 @@ socket.on('handRaised', (username) => {
     scrollToBottom()
 })
 
-//======================== Listening: User joined/left from server ===============================//
-// temp messages on screen
+//======================== Listening: USER LEFT/ JOINED from server ===============================//
 socket.on('user-joined', (userId, username) => {
     const html = Mustache.render(adminMessageTemplate, {
         icon: '<i class="fas fa-user-plus"></i>',

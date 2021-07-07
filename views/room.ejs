@@ -15,13 +15,28 @@
     <script>
         const ROOM_ID = "<%= roomId %>"
         const USER_NAME = "<%= username %>";
-        // console.log('Data recieved!! ', username, roomname, ROOM_ID);
     </script>
+
     <title>Video Chat App</title>
 </head>
 
 <body>
-    <main>
+    <div class="waiting_room">
+        <h1 class="waiting_room__header"> Choose your audio and video settings </h1>
+        <div class="waiting_room__video">
+
+        </div>
+        <div class="waiting_room__btn-group">
+            <div class="icon mute-button_wr" onclick="muteUnmute_wr()">
+                <i class="fas fa-microphone-slash"></i>
+            </div>
+            <div class="icon video-button_wr" onclick="playStop_wr()">
+                <i class="fas fa-video-slash"></i> 
+                </div>
+        </div>
+        <a class="joincall_btn btn">Join now</a>
+    </div>
+    <main id="main_app">
         <div class="row">
             <div class="col-r1-of-1">
                 <%# MAIN BAR %>
@@ -48,9 +63,12 @@
                         </div>
                         <div class="main-bar__icons__center">
                             <%# Mic audio ss %>
-                            <div class="icon mic-div mute-button" onclick="muteUnmute()"><i
-                                    class="fas fa-microphone"></i> </div>
-                            <div class="icon video-button" onclick="playStop()"><i class="fas fa-video"></i> </div>
+                            <div class="icon mic-div mute-button" onclick="muteUnmute()">
+                                <i class="fas fa-microphone"></i> 
+                            </div>
+                            <div class="icon video-button" onclick="playStop()">
+                                <i class="fas fa-video"></i> 
+                            </div>
                             <div class="icon" id="screen-share-button"><i class="fas fa-arrow-up screen-share-icon"></i>
                             </div>
                             <%# Leave %>

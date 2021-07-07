@@ -11,7 +11,13 @@ video {
     display: block;
     flex: 1;
     object-fit: cover;
-    max-width: 75rem;
+    max-width: 70%;
+    height: 100%;
     border: 1px solid #1B1A1A;
     border-radius: 4px;
+}
+
+.video_wr {
+    height: 100%;
+    width: 100%;
 }

@@ -15,7 +15,16 @@
 @import "layout/side-bar";
 
 @import "pages/room";
+@import "pages/waitingroom";
 
 form {
     display: inline;
+}
+
+#main_app {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
 }

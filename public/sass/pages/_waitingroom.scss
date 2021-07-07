@@ -1,0 +1,32 @@
+.waiting_room {
+    background-color: #1B1A1A;
+    color: white;
+    width: 100vw;
+    height: 100vh;
+    z-index: +10;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    &__video {
+        background-color: #292828;
+        margin: 4rem;
+        width: 60rem;
+        height: 40rem;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    &__btn-group {
+        margin-bottom: 2rem;
+        width: 45rem;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-around;
+        padding: 2rem;
+    }
+}

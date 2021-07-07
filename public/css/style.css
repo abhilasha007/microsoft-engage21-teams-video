@@ -270,9 +270,47 @@ video {
   display: block;
   flex: 1;
   object-fit: cover;
-  max-width: 75rem;
+  max-width: 70%;
+  height: 100%;
   border: 1px solid #1B1A1A;
   border-radius: 4px; }
 
+.video_wr {
+  height: 100%;
+  width: 100%; }
+
+.waiting_room {
+  background-color: #1B1A1A;
+  color: white;
+  width: 100vw;
+  height: 100vh;
+  z-index: +10;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+  .waiting_room__video {
+    background-color: #292828;
+    margin: 4rem;
+    width: 60rem;
+    height: 40rem;
+    display: flex;
+    justify-content: space-around; }
+  .waiting_room__btn-group {
+    margin-bottom: 2rem;
+    width: 45rem;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    padding: 2rem; }
+
 form {
   display: inline; }
+
+#main_app {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0; }
