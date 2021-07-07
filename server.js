@@ -22,32 +22,30 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-    console.log(req.body);
-    res.render('joinroom', {roomId: req.body.room_code});
-})
-
-app.get('/creds', (req, res) => {
-    res.render('createroom', {
-        roomId: uuidV4()
-    });
-})
-
-app.post('/callended', (req, res) => {
-    console.log('Left page', req.body);
-    res.render('leftpage', {roomId: req.body.roomId, username: req.body.username});
+    if(!req.body.room_code) {
+        res.redirect(`/${uuidV4()}`);
+    }
+    else {
+        const roomId = req.body.room_code;
+        res.redirect(`/${roomId}`);
+    }
 })
 
 app.get('/:room', (req, res) => {
     const roomId = req.params.room
-    res.render('room', { roomId : roomId })
+    res.render('joinroom', {roomId: roomId});
 })
 
 app.post('/:room', (req, res) => {
-    console.log(req.body);
-    const username = req.body.username;
-    const roomname = req.body.roomname;
-    const roomId = req.body.roomId;
-    res.render('room', {roomId : roomId, username: username, roomname: roomname})
+    if(req.body.left) {
+        res.render('leftpage', {roomId: req.body.roomId, username: req.body.username});
+    }
+    else {
+        const roomId = req.body.roomId;
+        const username = req.body.username;
+        const roomname = req.body.roomname;
+        res.render('room', {roomId : roomId, username: username, roomname: roomname})
+    }
 })
 
 // when client connects

@@ -1,7 +1,6 @@
 const socket = io('/')
 const videoGrid = document.getElementById("video-grid");
 
-const $tempMessage = document.querySelector("#temp-message")
 const $messageForm = document.getElementById('message-form');
 const $messageInput = $messageForm.querySelector('input');
 const $messageButton = $messageForm.querySelector('button');
@@ -12,7 +11,6 @@ const $screenShareBtn = document.getElementById('screen-share-button')
 const $screenShareVideo = document.getElementById('screen-share-video');
 
 // Templates
-const tempMessageTemplate = document.querySelector("#temp-msg-template").innerHTML;
 const sentMessageTemplate = document.querySelector("#sent-message-template").innerHTML;
 const recievedMessageTemplate = document.querySelector('#recieved-message-template').innerHTML;
 const adminMessageTemplate = document.querySelector('#admin-message-template').innerHTML;
@@ -100,7 +98,7 @@ const scrollToBottom = () => {
 }
 
 //============================ Screen Share ======================================//
-document.getElementById('screen-share-button').addEventListener('click', (e) => {
+$screenShareBtn.addEventListener('click', (e) => {
     // console.log('Screen share button clicked');
     navigator.mediaDevices.getDisplayMedia({
         video: {

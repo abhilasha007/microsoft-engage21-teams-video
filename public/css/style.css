@@ -111,7 +111,8 @@ body {
   padding: .8rem 1.5rem; }
   .msg__header {
     display: flex;
-    flex-flow: row; }
+    flex-flow: row;
+    padding-bottom: 3px; }
     .msg__header__name {
       font-weight: 550;
       font-size: 1.4rem;

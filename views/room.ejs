@@ -28,8 +28,9 @@
                 <div class="main-bar">
                     <%# header %>
                     <div class="main-bar__header">
-                        <span class="heading-primary"> <input placeholder="meet title" > </span>
-                        <button type="submit"> ok </button>
+                        <span class="heading-primary"> Meet Title</span>
+                        <%#<input placeholder="meet title" >
+                        <button type="submit"> ok </button>%>
                         <span class="heading-timer"> 7.33</span>
                     </div>
 
@@ -53,9 +54,10 @@
                             <div class="icon" id="screen-share-button"><i class="fas fa-arrow-up screen-share-icon"></i>
                             </div>
                             <%# Leave %>
-                            <form action="/callended" method="POST">
+                            <form action="/<%= roomId %>" method="POST">
                                 <input type="hidden" value="<%= roomId %>" name="roomId" />
                                 <input type="hidden" value="<%= username %>" name="username" /> 
+                                <input type="hidden" value="true" name="left" />
                                 <button class="rm-button" type="submit">
                                     <div class="icon hangup-div"><i class="hangup fas fa-phone"></i></div>
                                 </button>
@@ -126,12 +128,7 @@
     </main>
 
     <%# Custom Templates %>
-    <script id="temp-msg-template" type="text/html">
-        <div class="temp-message">
-            {{userId}} has Joined the room.
-        </div>
-    </script>
-
+    
     <script id="sent-message-template" type="text/html">
         <div class="msg sent-msg">
             <div class="msg__header">
