@@ -1,25 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+    <link rel="shortcut icon" href="img/video2.ico" type="image/x-icon" />
+    <title>Home</title>
+    <style>
+        .code_popup {
+            font-size: 20px;
+            font-weight: 500;
+            color: #6264A7;
+        }
+        body{
+            padding: 0 150px;
+        }
+        .user-icon {
+            display: flex;
+            justify-content: center;
+            font-size: 80px;
+            color: rgba(99, 101, 241, 0.63);
+        }
+        form {
+            display: inline;
+        }
+        .clip {
+            color: #6264A7;
+            padding-left: 10px;
+            cursor: pointer;
+        } 
+        .msg-icons {
+            color: #616161;
+            transform: all .2s;  
+        }
+        .msg-icons:hover {
+            cursor: pointer;
+            transform: scale(1.04);
+            color: rgb(98,100,167);
+        }
+        .msg-icons:active{
+            transform: translateY(1px);
+        }
+    </style>
     <script>
         const ROOM_ID = "<%= roomId %>"
     </script>
 </head>
-
 <body>
-    <h1>Join Page</h1>
-    <a href="/">back to home</a>
-    <h2> Your room id : "<%= roomId%>" </h2>
-    <form action="/<%= roomId%>" method="POST">
-        <input type="text" name="username" placeholder="Your Name" required>
-        <input type="hidden" value="<%= roomId %>" name="roomId" />
-        <button type="submit"> Join </button>
-    </form>
-</body>
+    <section class="text-gray-600 body-font">
+        <div class="container px-5 py-24 mx-auto">
+          <div class="flex flex-col text-center w-full mb-12">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Enter your name</h1>
+            <p class="lg:w-2/3 mx-auto leading-relaxed text-base"> Meeting ID:
+                <div class="code_popup" style="user-select: all"> <%= roomId%> <i class="fas msg-icons clip fa-copy"></i> </div>
+            </p>
+          </div>
+          <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+            <div class="relative flex-grow w-full">
+                <form action="/<%= roomId%>" method="POST">
+                    <label for="full-name" class="leading-7 text-sm text-gray-600">Your Name</label>
 
+                    <input type="text" id="full-name" name="username" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required autocomplete="off">
+
+                    <input type="hidden" value="<%= roomId %>" name="roomId" />
+            </div>
+                <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Next</button>
+            </form>
+          </div>
+        </div>
+    </section>
+    <div class="user-icon">
+        <i class="fas fa-user"></i>
+    </div>
+
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script> 
+        document.querySelector('.clip').addEventListener('click', (e) => {
+            document.execCommand("Copy");
+        }) 
+    </script>
+</body>
 </html>

@@ -3,7 +3,7 @@ const express = require('express')
 const socketio = require('socket.io')
 const {v4: uuidV4} = require('uuid')
 
-const { addUser, getUserById } = require('./src/utils/users')
+const { addUser, getUserById, removeUser, getUsersInRoom } = require('./src/utils/users')
 const { generateMessage } = require('./src/utils/messages')
 
 const app = express()
@@ -58,6 +58,10 @@ io.on('connection', (socket) => {
         
         socket.broadcast.to(roomId).emit('user-joined', userId, username)
         
+        io.to(roomId).emit('roomData', {
+            users: getUsersInRoom(roomId)
+        })
+
         // recieving message from client
         socket.on('sendMessage', (msg, callback) => {
             socket.broadcast.to(user.roomId).emit('createMessage', generateMessage(msg, username));
@@ -69,7 +73,11 @@ io.on('connection', (socket) => {
         })
 
         socket.on('disconnect', () => {
+            const user = removeUser(socket.id)
             socket.broadcast.to(roomId).emit('user-disconnected', userId, username);
+            io.to(roomId).emit('roomData', {
+                users: getUsersInRoom(user.roomId)
+            })
         })
     })
 })

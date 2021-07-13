@@ -8,6 +8,8 @@
 // @import "base/utilities";
 
 @import "components/icon";
+@import "components/button";
+@import "components/popup";
 @import "components/message";
 
 @import "layout/grid";
@@ -28,3 +30,29 @@ form {
     top: 0;
     left: 0;
 }
+
+.people {
+    margin-top: -12px;
+}
+.icon-person {
+    padding: 0 10px;
+    color: #6264A7;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    color: #6264A7;
+}
+
+li {
+    padding: 10px 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.icon-clip {
+    color: #6264A7;
+    padding-left: 10px;
+    cursor: pointer;
+}    

@@ -4,19 +4,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>You left</title>
+    <link rel="shortcut icon" href="img/video2.ico" type="image/x-icon"/>
     <script>
         const ROOM_ID = '<%= roomId %>'
         const USER_NAME = "<%= username %>";
     </script>
 </head>
+<style>
+    .icons-div{
+        display: flex;
+        flex-flow: row;
+        padding-right: 340px;
+    }
+    .heading {
+        font-size: 50px;
+        /* padding: 100px 350px; */
+        display: flex;
+        justify-content: center;
+        padding-top: 100px;
+        padding-bottom: 50px;
+    }
+</style>
 <body>
-    <h1> You left</h1>
-    <a href="/"> Return to Home </a>
-    <form action="/<%= roomId %>" method="POST">
-        <input type="hidden" value="<%= username %>" name="username">
-        <input type="hidden" value="<%= roomId %>" name="roomId" />
-        <button type="submit">Rejoin Meeting</button>
-    </form>
+    <section class="text-gray-600 body-font">
+        <div class="heading">You've left the meeting!</div>
+        
+        <div class="icons-div">
+            <button class="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded">
+                <a href="/"> Return to Home </a>
+            </button>
+            
+            <form action="/<%= roomId %>" method="POST">
+                <input type="hidden" value="<%= username %>" name="username">
+                <input type="hidden" value="<%= roomId %>" name="roomId" />
+
+                <button type="submit" class="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded">Rejoin Meeting</button>
+            </form> 
+        </div>
+    </section>
+
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </body>
 </html>

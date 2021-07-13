@@ -10,22 +10,16 @@
         background-color: rgba(97, 97, 97, 0.452);
         margin: 0 0 1rem 0;
         border-radius: 4px;
-        color: white;
-
+        
         &__option {
+            color: white;
             padding: 1rem;
             font-size: 1.5rem;
             text-align: center;
-            &:hover {
-                cursor: pointer;
-                background-color: rgba(98, 100, 167, 0.616);
-                border-radius: 4px 4px;
-                transform: scale(1.01);
-            }
-            // &::after {
-            //     background-color: rgb(98,100,167);
-            //     border-radius: 4px 4px;
-            // }
+            cursor: pointer;
+            background-color: rgba(98, 100, 167, 0.616);
+            border-radius: 4px 4px;
+            transform: scale(1.01);
         }
         .o1 {
             background-color: rgba(98, 100, 167, 0.616);

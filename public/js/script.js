@@ -8,13 +8,19 @@ const $messageButton = $messageForm.querySelector('button');
 const $messages = document.querySelector("#display-messages");
 const $emojiButton = document.getElementById("emoji-button");
 
+const $fullScreen = document.getElementById('full-screen-btn');
 const $screenShareBtn = document.getElementById('screen-share-button')
 const $screenShareVideo = document.getElementById('screen-share-video');
+
+const $peopleBtn = document.getElementById('people-button');
+const $sidebarForm = document.querySelector('.side-bar__form');
+const $sidebarChat = document.querySelector('.side-bar__chat-box');
 
 // Templates
 const sentMessageTemplate = document.querySelector("#sent-message-template").innerHTML;
 const recievedMessageTemplate = document.querySelector('#recieved-message-template').innerHTML;
 const adminMessageTemplate = document.querySelector('#admin-message-template').innerHTML;
+const peopleInChatTemplate = document.querySelector('#people-in-chat').innerHTML;
 
 const main__app = document.getElementById('main_app');
 const waiting__room = document.querySelector('.waiting_room');
@@ -39,11 +45,11 @@ myPeer.on('open', (id) => {
     socket.emit('join-room', ROOM_ID, id, username);
 })
 
+//=========================== prompting permission of media usage to user ======================//
 let myVideoStream;
 const myVideo = document.createElement('video')
 myVideo.muted = true
 
-//=========================== prompting permission of media usage to user ======================//
 navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true
@@ -273,6 +279,21 @@ socket.on('handRaised', (username) => {
     scrollToBottom()
 })
 
+//==================================== FULL SCREEN =================================================//
+$fullScreen.addEventListener('click', (e) => {
+    toggleFullScreen();
+})
+
+function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+}
+  
 //======================== Listening: USER LEFT/ JOINED from server ===============================//
 socket.on('user-joined', (userId, username) => {
     const html = Mustache.render(adminMessageTemplate, {
@@ -293,3 +314,53 @@ socket.on('user-disconnected', (userId, username) => {
     scrollToBottom()
     if(peers[userId]) peers[userId].close()
 })
+
+//==================================== ROOM DATA =================================//
+socket.on('roomData', ({users}) => {
+    console.log(users);
+    const html = Mustache.render(peopleInChatTemplate, {
+        users
+    })
+    document.querySelector('.people').innerHTML = html;
+
+})
+
+//======================== COPY TO CLIPBOARD ==================================//
+document.querySelector('.icon-clip').addEventListener('click', (e) => {
+    document.execCommand("Copy");
+})
+
+//=============================== TIMER ==================================//
+let [milliseconds,seconds,minutes,hours] = [0,0,0,0];
+let timerRef = document.querySelector('.timerDisplay');
+let int = null;
+
+// document.getElementById('startTimer').addEventListener('click', ()=>{
+    if(int!==null){
+        clearInterval(int);
+    }
+    int = setInterval(displayTimer,10);
+// });
+
+
+function displayTimer(){
+    milliseconds+=10;
+    if(milliseconds == 1000){
+        milliseconds = 0;
+        seconds++;
+        if(seconds == 60){
+            seconds = 0;
+            minutes++;
+            if(minutes == 60){
+                minutes = 0;
+                hours++;
+            }
+        }
+    }
+    let h = hours < 10 ? "0" + hours : hours;
+    let m = minutes < 10 ? "0" + minutes : minutes;
+    let s = seconds < 10 ? "0" + seconds : seconds;
+    let ms = milliseconds < 10 ? "00" + milliseconds : milliseconds < 100 ? "0" + milliseconds : milliseconds;
+
+    timerRef.innerHTML = ` ${h} : ${m} : ${s} `;
+}

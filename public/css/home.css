@@ -1,0 +1,105 @@
+body {
+    box-sizing: border-box;
+}
+
+#left-box {
+    padding: 60px;
+    /* padding-right: 60px; */
+}
+
+#right-box {
+    padding-right: 50px;
+}
+
+#create-btn {
+    margin: 20px 0;
+}
+
+h1 {
+    font-size: 90px;
+    letter-spacing: 4px;
+}
+
+.rm-button {
+    font-size: 1.7rem;
+    background: transparent;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent; 
+}  
+
+form {
+    display: inline;
+}
+
+
+.heading-primary {
+    text-transform: uppercase;
+    color: white;
+    backface-visibility: hidden;
+    margin-bottom: 6rem;
+    color: #6366F1;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+    /* &--main {
+        display: block;
+        font-size: 6rem;
+    
+        animation-name: moveInLeft;
+        animation-duration: 1s;
+        animation-timing-function: ease-out;
+    }
+
+    &--sub {
+        display: block;
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 1.75rem;
+        animation: moveInRight 1s ease-out;
+    } */
+}
+
+
+.composition {
+    position: relative;
+    margin-top: -100px;
+    margin-left: -100px;
+/*     
+    &:hover &__photo:not(:hover) {
+        transform: scale(0.95);
+    } */ 
+}
+
+.composition__photo {
+    width: 60%;
+    box-shadow: 0 1.5rem 4rem rgba(#000, .4);
+    border-radius: 2px;
+    position: absolute;
+    z-index: 10;
+    transition: all 0.2s;
+    outline-offset: 15px;
+}
+
+.composition__photo:hover {
+    outline: 15px solid #6366F1;
+    z-index: 20;
+    transform: scale(1.05);
+    transform: translateY(-5px);
+    box-shadow: 0 2.5rem 4rem rgba(black, .5);
+}
+
+.composition__photo--p1 {
+    left: -1.5rem;
+    top: -4rem;
+    box-shadow: 0 2rem 4rem rgba(#000, .4);
+}
+
+.composition__photo--p2 {
+    right: -40px;
+    top: 1.5rem;
+}
+
+.composition__photo--p3 {
+    left: 12%;
+    top: 10rem;
+}

@@ -17,7 +17,7 @@
         const USER_NAME = "<%= username %>";
     </script>
 
-    <title>Video Chat App</title>
+    <title>Teams Video</title>
 </head>
 
 <body>
@@ -43,10 +43,8 @@
                 <div class="main-bar">
                     <%# header %>
                     <div class="main-bar__header">
-                        <span class="heading-primary"> Meet Title</span>
-                        <%#<input placeholder="meet title" >
-                        <button type="submit"> ok </button>%>
-                        <span class="heading-timer"> 7.33</span>
+                        <span class="heading-primary"> Teams Video </span>
+                        <span class="heading-timer timerDisplay"> </span>
                     </div>
 
                     <%# video %>
@@ -59,7 +57,12 @@
                     <div class="main-bar__icons">
                         <%# Share link %>
                         <div class="main-bar__icons__right">
-                            <div class="icon"><i class="fas fa-user-plus"></i></div>
+                            <div class="icon">
+                                <a href="#popup"><i class="fas fa-user-plus"></i></a>
+                            </div>
+                            <div class="icon">
+                                <a href="#popup-people"><i class="fas fa-users"></i></a>
+                            </div>
                         </div>
                         <div class="main-bar__icons__center">
                             <%# Mic audio ss %>
@@ -84,7 +87,7 @@
                         <div class="main-bar__icons__left">
                             <%# Raise hand/ Full screen %>
                             <div class="icon" id="raise-hand-button" onclick="raiseHand()"><i class="fas fa-hand-paper"></i></div>
-                            <div class="icon"><i class="fas fa-expand"></i></div>
+                            <div class="icon" id='full-screen-btn'><i class="fas fa-expand"></i></div>
                         </div>
                     </div>
                 </div>
@@ -94,42 +97,23 @@
             <div class="col-r2-of-1">
                 <div class="side-bar">
                     <%# nav %>
-                    <div class="side-bar__nav">
-                        <div class="row">
-                            <div class="col-1-of-3">
-                                <div class="side-bar__nav__option o1"> Chat <i class="o far fa-comment-alt"></i> </div>
-                            </div>
-                            <div class="col-1-of-3">
-                                <div class="side-bar__nav__option o2"> People<i class="o fas fa-user-friends"></i>
-                                </div>
-                            </div>
-                            <div class="col-1-of-3">
-                                <div class="side-bar__nav__option o3"> Info <i class="o fas fa-info-circle"></i> </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <%# <div class="side-bar__header">
-                        Chat
-                    </div> %>
+                            
+                    <h3>Chat Messages</h3>
 
                     <%# Main chat box%>
                     <div class="side-bar__chat-box" id="display-messages">
-                        <%#<img class="sent-image" src="/img/video2.ico" >%>
+                        
                     </div>
 
                     <%# Input form %>
                     <div class="side-bar__form">
                         <form id="message-form">
-                            <input class="" name="messageInput" placeholder="Type a new message here" autocomplete="off"
-                                required>
+                            <input class="" name="messageInput" placeholder="Type a new message here" autocomplete="off" required>
                             <div class="side-bar__form__icons">
                                 <div class="side-bar__form__icons__left">
                                     <div class="msg-icons" id="emoji-button">
-                                        <i class="fas fa-smile"></i>
+                                        <i class="fas fa-smile"></i> 
                                     </div>
-                                    <div class="msg-icons"><i class="fas fa-images"></i></div>
-                                    <div class="msg-icons"><i class="fas fa-map-marked-alt"></i></div>
                                 </div>
                                 <div class="side-bar__form__icons__right">
                                     <button class="rm-button">
@@ -145,8 +129,37 @@
         </div>
     </main>
 
+    <div class="popup" id="popup">
+        <div class="popup__content">
+            
+            <div class="popup__right">
+                <a href="#" class="popup__close">&times;</a>
+                <h2 class="heading-secondary u-margin-bottom-small">Invite others by sharing code</h2>
+                <p class="popup__text">
+                    <div class="header_popup"> Meeting code: </div>
+                   <div class="code_popup" style="user-select: all"> <%= roomId %> 
+                    <i class="fas msg-icons icon-clip fa-copy"></i> </div>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="popup-people">
+        <div class="popup__content">
+            
+            <div class="popup__right">
+                <a href="#" class="popup__close">&times;</a>
+                <h2 class="heading-secondary u-margin-bottom-small">People in Chat</h2>
+                <p class="popup__text">
+                    <div class="people">
+
+                    </div>
+                </p>
+            </div>
+        </div>
+    </div>
+
     <%# Custom Templates %>
-    
     <script id="sent-message-template" type="text/html">
         <div class="msg sent-msg">
             <div class="msg__header">
@@ -181,6 +194,14 @@
                 <span class="admin-msg__h__info"> {{info}} </span> 
             </span>
         </div>
+    </script>
+
+    <script id="people-in-chat" type="text/html">
+        <ul class="users">
+            {{#users}}
+                <li> <i class="fas icon-person fa-user"></i> {{username}} </li>
+            {{/users}}
+        </ul>
     </script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>

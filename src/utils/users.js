@@ -13,7 +13,7 @@ const getUserById = (id) => {
 }
 
 const removeUser = (id) => {
-    const index = users.findIndex((user) => user.userId === id)
+    const index = users.findIndex((user) => user.socketId === id)
     
     if(index !== -1) {
         return users.splice(index, 1)[0]
@@ -21,7 +21,6 @@ const removeUser = (id) => {
 }
 
 const getUsersInRoom = (roomId) => {
-    // room = room.trim().toLowerCase()
     const arr = []
     users.find((user) => {
         if(user.roomId === roomId) {
@@ -33,5 +32,7 @@ const getUsersInRoom = (roomId) => {
 
 module.exports = {
     addUser,
-    getUserById
+    getUserById,
+    removeUser,
+    getUsersInRoom
 }

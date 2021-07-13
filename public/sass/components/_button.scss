@@ -1,4 +1,5 @@
 .btn {
+    cursor: pointer;
     text-decoration: none;
     letter-spacing: 1px;
     padding: 1.5rem 4rem;
@@ -24,11 +25,4 @@
         box-shadow: 0rem .5rem 1rem rgba($color-black, 0.2);
     }
     
-    &--white {
-        background-color: white;
-        color: black;
-        &::after {
-            background-color: $color-white;
-        }
-    }
 }
