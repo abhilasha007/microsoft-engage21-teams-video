@@ -8,20 +8,22 @@ Built backend server with Express.js, Node.js, rendered real time data using soc
 Deployed on herkuapp.
 
 ## Fuctionalities of Teams Video:
-- Video on/off toggle
-- Audio on/off toggle
+- Video on-off toggle
+- Audio on-off toggle
 - Screen share
-- Shows participants in the call
+- Displays participants in the call
 - Instantly join a video call with a code
 - Invite others to Call
 - User left and joined notification
+- Waiting room: Set audio, video settings before joining the call
 - Raise Hand
 - Full Screen
 - Leave Call
-- Shows time duration you've been in the call
-- Real time Chat : text message, emoji picker
+- Rejoin the call you've left
+- Displays time duration you've been in the call
+- Real time Chat : text messaging, emoji picker
 - Auto scroll of chat to latest notification
-- Supports 2 to 5 participants
+- Supports 2 to 7 participants in call
 - Simple and intuitive UI
 - Unlimited duration calls
 
