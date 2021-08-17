@@ -1,7 +1,5 @@
 # Teams Video | Microsoft Engage 2021
 
-Live website: https://ms-teams-video.herokuapp.com/
-
 A multi-party video conferencing and web chat application.
 Built front end with HTML5, CSS3, SASS, JavaScript by EJS templating.
 Built backend server with Express.js, Node.js, rendered real time data using socket.io, obtained user's media using webRTC and peerjs.
